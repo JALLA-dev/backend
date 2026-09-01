@@ -7,7 +7,7 @@ import authRoutes from "./routes/authRoutes.js";
 import taskRoutes from "./routes/taskRoutes.js";
 
 const app = express();
-const PORT = parseInt(process.env.EXPRESS_PORT || "5000", 10);
+const PORT = parseInt(process.env.PORT || process.env.EXPRESS_PORT || "5000", 10);
 const CLIENT_URL = process.env.CLIENT_URL || "http://localhost:5173";
 
 // Middleware
