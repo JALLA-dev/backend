@@ -13,7 +13,19 @@ const CLIENT_URL = process.env.CLIENT_URL || "http://localhost:5173";
 // Middleware
 app.use(
   cors({
-    origin: CLIENT_URL,
+    origin: function (origin, callback) {
+      if (!origin) return callback(null, true);
+      
+      const allowed = origin.startsWith('http://localhost') || 
+                     origin.endsWith('.vercel.app') || 
+                     origin === process.env.CLIENT_URL;
+                     
+      if (allowed) {
+        callback(null, true);
+      } else {
+        callback(new Error('Not allowed by CORS'));
+      }
+    },
     credentials: true,
   })
 );
